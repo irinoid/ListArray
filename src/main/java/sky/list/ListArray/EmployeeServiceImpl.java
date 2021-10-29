@@ -14,11 +14,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public Employee addEmployee(String lastName, String firstName) throws EmpIntServErrException {
+    public String addEmployee(String lastName, String firstName) throws EmpIntServErrException {
+        Employee newEmp = new Employee(lastName, firstName);
         if (employee.size() < 10) {
-            employee.add(new Employee(lastName, firstName));
-            int i = employee.size() - 1;
-            return employee.get(i);
+            employee.add(newEmp);
+
+            return "Сотрудник " + newEmp.toString() + " успешно создан.";
         } else {
             throw new EmpIntServErrException();
         }
@@ -29,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee compareEmp = new Employee(lastName, firstName);
         if (employee.contains(compareEmp)) {
             employee.remove(compareEmp);
-            return lastName + " " + firstName;
+            return "Сотрудник " + compareEmp.toString() + " удален.";
         } else {
             throw new EmpNotFoundException();
         }
@@ -37,8 +38,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String lastName, String firstName) throws EmpNotFoundException {
+        Employee employeeForSearch = new Employee(lastName, firstName);
         for (int i = 0; i < employee.size(); i++) {
-            if ((employee.get(i).getFirstName().equals(firstName)) && (employee.get(i).getLastName().equals(lastName))) {
+
+            if (employee.get(i).equals(employeeForSearch)) {
                 return employee.get(i);
             }
         }

@@ -15,13 +15,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String lastName, @RequestParam String firstName) {
-       return employeeService.addEmployee(lastName, firstName);
+    public String addEmployee(@RequestParam String lastName, @RequestParam String firstName) {
+        return employeeService.addEmployee(lastName, firstName);
     }
 
     @GetMapping("/remove")
     public String deleteEmployee(@RequestParam String lastName, @RequestParam String firstName) throws EmpNotFoundException {
-        return "Сотрудник " + employeeService.deleteEmployee(lastName, firstName) + " удален.";
+        return employeeService.deleteEmployee(lastName, firstName);
     }
 
     @GetMapping("/find")
